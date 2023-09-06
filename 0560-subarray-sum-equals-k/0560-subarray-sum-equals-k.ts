@@ -1,18 +1,24 @@
 function subarraySum(nums: number[], k: number): number {
-    const map = new Map();
-    
     let sum = 0;
-    let ans = 0;
-    
-    map.set(0, 1);
-
-    for (let num of nums) {
+    let sumArr = nums.map((num) => {
         sum += num;
-        // 현재 누적 합에서 k를 뺀 값이 map에 몇 번 등장했는지 확인
-        ans += map.get(sum - k) || 0;
-        // 현재 누적 합을 map에 업데이트
-        map.set(sum, (map.get(sum) || 0) + 1);
-    }
-    
+        return sum;
+    })
+
+    sumArr = [0, ...sumArr];
+
+    const map = new Map();
+
+    sumArr.forEach((num, idx) => {
+        map.get(num) ? map.get(num).push(idx) : map.set(num, [idx]);
+    })
+
+    let ans = 0;
+    sumArr.forEach((num, idx) => {
+        const indices = map.get(num - k) || [];
+        // 현재 인덱스 이전의 인덱스만 카운트
+        ans += indices.filter(i => i < idx).length; 
+    })
+
     return ans;
 };
