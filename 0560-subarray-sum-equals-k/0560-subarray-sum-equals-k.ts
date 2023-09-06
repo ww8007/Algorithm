@@ -15,9 +15,8 @@ function subarraySum(nums: number[], k: number): number {
 
     let ans = 0;
     sumArr.forEach((num, idx) => {
-        const indices = map.get(num - k) || [];
-        // 현재 인덱스 이전의 인덱스만 카운트
-        ans += indices.filter(i => i < idx).length; 
+        const arr = map.get(num - k) || [];
+        ans += arr.filter(i => i < idx).length; 
     })
 
     return ans;
