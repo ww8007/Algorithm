@@ -1,6 +1,4 @@
 function maxSubArray(nums: number[]): number {
-    let sIdx = 0;
-    
     const len = nums.length;
     
     let dp = Array.from({ length : len }, () => 0);
